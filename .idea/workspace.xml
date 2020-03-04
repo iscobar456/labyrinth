@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9e0c7bd-c60a-4178-9339-0c857561c9a2" name="Default Changelist" comment="" />
+    <list default="true" id="b9e0c7bd-c60a-4178-9339-0c857561c9a2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/GameTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/maze.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/maze.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/LabyrinthFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/LabyrinthFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LabyrinthFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LabyrinthFrame.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +25,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1YLp3519zd2pAYkhMue69Z9sh7Y" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -57,5 +64,18 @@
       <updated>1582731526862</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
