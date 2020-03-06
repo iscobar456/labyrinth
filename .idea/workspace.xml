@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9e0c7bd-c60a-4178-9339-0c857561c9a2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/GameTile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Column.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GameTracker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Stack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Tile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/maze.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/maze.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/GameTile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/GameTile.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/LabyrinthFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/LabyrinthFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameTile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LabyrinthFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LabyrinthFrame.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

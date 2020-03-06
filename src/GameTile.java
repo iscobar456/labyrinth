@@ -17,6 +17,8 @@ public class GameTile extends JPanel {
         } else {
             throw new ExceptionInInitializerError();
         }
+
+        constructTile();
     }
 
     public GameTile(String type, String orientation, boolean hasPlayer) {
@@ -33,13 +35,13 @@ public class GameTile extends JPanel {
         }
 
         tileHasPlayer = hasPlayer;
-
+        System.out.println("hELLLO");
         constructTile();
     }
 
     private void constructTile() {
         super.setBackground(Color.blue);
-        super.setSize(30, 30);
+//        super.setSize(20, 20);
     }
 
 }
