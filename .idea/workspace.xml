@@ -2,17 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9e0c7bd-c60a-4178-9339-0c857561c9a2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Column.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GameTracker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Stack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TileConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/GameTile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/GameTile.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/LabyrinthFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/LabyrinthFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Column.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Column.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameTracker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LabyrinthFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LabyrinthFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tile.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,17 +32,15 @@
   </component>
   <component name="ProjectId" id="1YLp3519zd2pAYkhMue69Z9sh7Y" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="LabyrinthFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -55,6 +55,18 @@
         <item itemvalue="Application.LabyrinthFrame" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -81,5 +93,35 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="618" y="302" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583533583778">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="618" y="302" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1536.824@0.0.1536.824" timestamp="1583533583778" />
+    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1583534731148">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1583534731148" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1583603993534">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583603993534" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1583603993533">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583603993533" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1583603993533">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583603993533" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1583603993533">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583603993533" />
+    <state x="209" y="34" key="new project wizard" timestamp="1583534744818">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="209" y="34" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1583534744818" />
   </component>
 </project>

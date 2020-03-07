@@ -1,47 +1,48 @@
+import sun.security.util.ArrayUtil;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class GameTile extends JPanel {
-    private String tileType;
-    private String tileOrientation;
-    private boolean tileHasPlayer;
-    public GameTile(String type, String orientation) {
-        if (type.equalsIgnoreCase("TEE") || type.equalsIgnoreCase("CORNER") || type.equalsIgnoreCase("STRAIGHT")) {
-            tileType = type.toUpperCase();
-        } else {
-            throw new ExceptionInInitializerError();
-        }
-
-        if (orientation.equalsIgnoreCase("RIGHT") || orientation.equalsIgnoreCase("LEFT") || orientation.equalsIgnoreCase("UP") || orientation.equalsIgnoreCase("DOWN")) {
-            tileOrientation = orientation.toUpperCase();
-        } else {
-            throw new ExceptionInInitializerError();
-        }
-
-        constructTile();
-    }
-
-    public GameTile(String type, String orientation, boolean hasPlayer) {
-        if (type.equalsIgnoreCase("TEE") || type.equalsIgnoreCase("CORNER") || type.equalsIgnoreCase("STRAIGHT")) {
-            tileType = type.toUpperCase();
-        } else {
-            throw new ExceptionInInitializerError();
-        }
-
-        if (orientation.equalsIgnoreCase("RIGHT") || orientation.equalsIgnoreCase("LEFT") || orientation.equalsIgnoreCase("UP") || orientation.equalsIgnoreCase("DOWN")) {
-            tileOrientation = orientation.toUpperCase();
-        } else {
-            throw new ExceptionInInitializerError();
-        }
-
-        tileHasPlayer = hasPlayer;
-        System.out.println("hELLLO");
+    private Tile tile;
+    public GameTile(Tile t) {
+        tile = t;
         constructTile();
     }
 
     private void constructTile() {
-        super.setBackground(Color.blue);
-//        super.setSize(20, 20);
+        super.setBackground(Color.decode("#7c7646"));
+        super.setPreferredSize(new Dimension(80, 80));
+        super.setSize(new Dimension(80, 80));
+        super.setLayout(new GridLayout(3, 3));
+        for (int i = 0; i < 9; i++) {
+            JPanel path = new JPanel();
+            path.setBackground(Color.decode("#7c7646"));
+            if (i == 4) {
+                path.setBackground(Color.decode("#bab99d"));
+                if (tile.getPlayerOnTile() != null) {
+                    path.setLayout(new GridBagLayout());
+                    JPanel playerPiece = new JPanel();
+                    playerPiece.setBackground(tile.getPlayerOnTile().getPlayerColor());
+                    GridBagConstraints playerPieceConstraints = new GridBagConstraints();
+                    playerPieceConstraints.ipady = 5;
+                    playerPieceConstraints.ipadx = 5;
+                    path.add(playerPiece, playerPieceConstraints);
+                }
+            } else if (i == 1 && Arrays.stream(tile.getOutlets()).anyMatch(o -> o == TileConfiguration.UP)) {
+                path.setBackground(Color.decode("#bab99d"));
+            } else if (i == 3 && Arrays.stream(tile.getOutlets()).anyMatch(o -> o == TileConfiguration.LEFT)) {
+                path.setBackground(Color.decode("#bab99d"));
+            } else if (i == 5 && Arrays.stream(tile.getOutlets()).anyMatch(o -> o == TileConfiguration.RIGHT)) {
+                path.setBackground(Color.decode("#bab99d"));
+            } else if (i == 7 && Arrays.stream(tile.getOutlets()).anyMatch(o -> o == TileConfiguration.DOWN)) {
+                path.setBackground(Color.decode("#bab99d"));
+            }
+            super.add(path);
+        }
     }
 
 }
