@@ -56,4 +56,8 @@ public class Tile {
     public Player getPlayerOnTile() {
         return playerOnTile;
     }
+
+    public void setPlayerOnTile(Player playerOnTile) {
+        this.playerOnTile = playerOnTile;
+    }
 }

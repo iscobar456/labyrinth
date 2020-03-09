@@ -14,10 +14,9 @@ public class GameTile extends JPanel {
     }
 
     private void constructTile() {
-        super.setBackground(Color.decode("#7c7646"));
-        super.setPreferredSize(new Dimension(80, 80));
-        super.setSize(new Dimension(80, 80));
-        super.setLayout(new GridLayout(3, 3));
+        this.setBackground(Color.decode("#7c7646"));
+        this.setPreferredSize(new Dimension(100, 100));
+        this.setLayout(new GridLayout(3, 3));
         for (int i = 0; i < 9; i++) {
             JPanel path = new JPanel();
             path.setBackground(Color.decode("#7c7646"));
@@ -41,7 +40,7 @@ public class GameTile extends JPanel {
             } else if (i == 7 && Arrays.stream(tile.getOutlets()).anyMatch(o -> o == TileConfiguration.DOWN)) {
                 path.setBackground(Color.decode("#bab99d"));
             }
-            super.add(path);
+            this.add(path);
         }
     }
 

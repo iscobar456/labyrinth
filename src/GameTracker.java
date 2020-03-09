@@ -1,7 +1,9 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameTracker {
     private Tile[][] grid;
+    private Tile currentTile;
     public GameTracker() {
         int c = TileConfiguration.CORNER;
         int s = TileConfiguration.STRAIGHT;
@@ -25,9 +27,45 @@ public class GameTracker {
                 {null,                    null, null,           null, null,           null, null},
                 {new Tile(c, u, player4), null, new Tile(t, r), null, new Tile(t, r), null, new Tile(c, l, player3)},
         };
+
+        ArrayList randomTiles = new ArrayList<Tile>();
+
+        for (int i = 0; i < 12; i++) {
+            int orientation = (int)(Math.random() * 4);
+            randomTiles.add(new Tile(TileConfiguration.STRAIGHT, orientation));
+        }
+
+        for (int i = 0; i < 16; i++) {
+            int orientation = (int)(Math.random() * 4);
+            randomTiles.add(new Tile(TileConfiguration.CORNER, orientation));
+        }
+
+        for (int i = 0; i < 6; i++) {
+            int orientation = (int)(Math.random() * 4);
+            randomTiles.add(new Tile(TileConfiguration.TEE, orientation));
+        }
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == null) {
+                    int tileIndex = (int) (Math.random() * randomTiles.size());
+                    Tile randomTile = (Tile) randomTiles.remove(tileIndex);
+                    grid[i][j] = randomTile;
+                }
+            }
+        }
+        currentTile = (Tile) randomTiles.remove(0);
     }
 
     public Tile[][] getGrid() {
         return grid;
+    }
+
+    public void setCurrentTile(Tile currentTile) {
+        this.currentTile = currentTile;
+    }
+
+    public Tile getCurrentTile() {
+        return currentTile;
     }
 }
