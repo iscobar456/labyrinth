@@ -19,6 +19,7 @@ public class LabyrinthFrame {
 //        Game Grid Container
         JPanel ggc = new JPanel();
         ggc.setLayout(new GridBagLayout());
+        ggc.setBackground(Color.decode("#0b0c10"));
 
         GridBagConstraints ggcc = new GridBagConstraints();
         ggcc.gridx = 1;
@@ -37,33 +38,49 @@ public class LabyrinthFrame {
                 Graphics2D g2d = (Graphics2D) g;
                 super.paintComponent(g2d);
                 g2d.setColor(Color.decode("#677e75"));
-
                 if (orientation == 'u') {
-                    g2d.translate(this.getWidth() - 20 / 2,this.getHeight() + 10 / 2);
+                    System.out.println("running");
+                    g2d.translate(30, 60);
                     Polygon triangle = new Polygon(new int[] {0, 20, 40}, new int[] {0, -20, 0}, 3);
                     g2d.fill(triangle);
                 } else if (orientation == 'r') {
-                    g2d.translate(this.getWidth() - 10 / 2,this.getHeight() - 20 / 2);
-                    Polygon triangle = new Polygon(new int[] {0, 20, 20}, new int[] {20, 0, 40}, 3);
+                    g2d.translate(40,30);
+                    Polygon triangle = new Polygon(new int[] {0, 20, 0}, new int[] {0, 20, 40}, 3);
                     g2d.fill(triangle);
                 } else if (orientation == 'd') {
-                    g2d.translate(this.getWidth() - 10 / 2,this.getHeight() - 20 / 2);
+                    g2d.translate(30, 40);
                     Polygon triangle = new Polygon(new int[] {0, 20, 40}, new int[] {0, 20, 0}, 3);
                     g2d.fill(triangle);
                 } else if (orientation == 'l') {
-                    g2d.translate(this.getWidth() - 10 / 2,this.getHeight() - 20 / 2);
-                    Polygon triangle = new Polygon(new int[] {0, 20, 0}, new int[] {0, 20, 40}, 3);
+                    g2d.translate(40, 30);
+                    Polygon triangle = new Polygon(new int[] {0, 20, 20}, new int[] {20, 0, 40}, 3);
                     g2d.fill(triangle);
                 }
             }
         }
 
 //        Creating and assigning arrows
-        GridBagConstraints arrowConstraints = new GridBagConstraints();
+        class ArrowConsts extends GridBagConstraints {
+            public ArrowConsts(int x, int y, int ipadx, int ipady) {
+                this.gridx = x;
+                this.gridy = y;
+//                this.ipadx = ipadx;
+//                this.ipady = ipady;
+            }
+        }
 
-        arrowConstraints.gridx = 2;
-        arrowConstraints.gridy = 0;
-        ggc.add(new InsertArrow('d'));
+        ggc.add(new InsertArrow('d'), new ArrowConsts(7, 0, 200, 0));
+        ggc.add(new InsertArrow('d'), new ArrowConsts(7, 0, 0, 0));
+        ggc.add(new InsertArrow('d'), new ArrowConsts(7, 0, 200, 0));
+//        ggc.add(new InsertArrow('l'), new ArrowConsts(8, 1, 1, 2));
+//        ggc.add(new InsertArrow('l'), new ArrowConsts(8, 2, 1, 2));
+//        ggc.add(new InsertArrow('l'), new ArrowConsts(8, 3, 1, 2));
+//        ggc.add(new InsertArrow('u'), new ArrowConsts(3, 8, 2, 1));
+//        ggc.add(new InsertArrow('u'), new ArrowConsts(2, 8, 2, 1));
+//        ggc.add(new InsertArrow('u'), new ArrowConsts(1, 8, 2, 1));
+//        ggc.add(new InsertArrow('r'), new ArrowConsts(0, 3, 1, 2));
+//        ggc.add(new InsertArrow('r'), new ArrowConsts(0, 2, 1, 2));
+//        ggc.add(new InsertArrow('r'), new ArrowConsts(0, 1, 1, 2));
 
 //        Game Grid
         JPanel gameGrid = new JPanel();
@@ -82,13 +99,14 @@ public class LabyrinthFrame {
 
 //        Initializing Game Grid
         GameTracker tracker = new GameTracker();
-        for (Tile[] tRow : tracker.getGrid()) {
-            for (Tile t : tRow) {
-                if (t != null) {
-                    gameGrid.add(new GameTile(t));
-                } else {
-                    gameGrid.add(new JPanel());
-                }
+        GridBagConstraints newTileConsts = new GridBagConstraints();
+        for (int i = 0; i < tracker.getGrid().length; i++) {
+            Tile[] tRow = tracker.getGrid()[i];
+            for (int j = 0; j < tRow.length; j++) {
+                Tile t = tRow[j];
+                newTileConsts.gridx = j + 1;
+                newTileConsts.gridy = i + 1;
+                ggc.add(new GameTile(t), newTileConsts);
             }
         }
 
