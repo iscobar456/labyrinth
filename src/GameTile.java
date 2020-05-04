@@ -13,7 +13,7 @@ public class GameTile extends JPanel {
 
     private void constructTile() {
         this.setBackground(Color.decode("#7c7646"));
-        this.setPreferredSize(new Dimension(100, 100));
+        this.setPreferredSize(new Dimension(70, 70));
         this.setLayout(new GridLayout(3, 3));
         for (int i = 0; i < 9; i++) {
             JPanel path = new JPanel();

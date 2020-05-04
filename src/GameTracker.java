@@ -1,10 +1,16 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameTracker {
     private Tile[][] grid;
+    private Tile[][] intermediaryGrid = null;
     private Tile currentTile;
-    public GameTracker() {
+    private Tile displacedTile = null;
+    private LabyrinthFrame gameFrame;
+    public GameTracker(LabyrinthFrame frame) {
+        gameFrame = frame;
+
         int c = TileConfiguration.CORNER;
         int s = TileConfiguration.STRAIGHT;
         int t = TileConfiguration.TEE;
@@ -57,8 +63,49 @@ public class GameTracker {
         currentTile = (Tile) randomTiles.remove(0);
     }
 
+    public void shiftStack(ShiftStackConfig config, Tile... starterTile) {
+        Tile[][] temporaryGrid = grid;
+        Tile store1 = currentTile;
+        Tile store2 = null;
+        if (config.horizontal) {
+            System.out.println("\n");
+            for (int i = 0; i < temporaryGrid.length; i++) {
+                if (i == temporaryGrid.length) {
+                    displacedTile = store1;
+                    temporaryGrid[config.position][i - 1] = store2;
+                    break;
+                }
+                store2 = store1;
+                store1 = temporaryGrid[config.position][i];
+                temporaryGrid[config.position][i] = store2;
+            }
+            System.out.println(Arrays.toString(temporaryGrid[config.position]));
+        } else {
+            for (int i = 0; i < temporaryGrid[0].length; i++) {
+                if (i == temporaryGrid.length) {
+                    displacedTile = store1;
+                    temporaryGrid[i - 1][config.position] = store2;
+                    break;
+                }
+                store2 = store1;
+                store1 = temporaryGrid[config.position][i];
+                temporaryGrid[i][config.position] = store2;
+            }
+        }
+        intermediaryGrid = temporaryGrid;
+        System.out.println(Arrays.toString(intermediaryGrid[config.position]));
+//        System.out.println(Arrays.deepToString(grid));
+//        System.out.println(Arrays.deepToString(intermediaryGrid));
+        gameFrame.renderGrid(true);
+    }
+
     public Tile[][] getGrid() {
-        return grid;
+        if (intermediaryGrid != null) {
+            System.out.println("getting intermediary grid");
+            return intermediaryGrid;
+        } else {
+            return grid;
+        }
     }
 
     public void setCurrentTile(Tile currentTile) {
@@ -67,5 +114,9 @@ public class GameTracker {
 
     public Tile getCurrentTile() {
         return currentTile;
+    }
+
+    public Tile getDisplacedTile() {
+        return displacedTile;
     }
 }

@@ -1,10 +1,7 @@
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class Tile {
-    private Tile upperTile;
-    private Tile lowerTile;
-    private Tile leftTile;
-    private Tile rightTile;
     private int tileOrientation;
     private int tileType;
     private int[] outlets;
@@ -47,6 +44,14 @@ public class Tile {
             default:
                 throw new Error("Invalid Tile Type");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "tileOrientation=" + tileOrientation +
+                ", tileType=" + tileType +
+                '}';
     }
 
     public int[] getOutlets() {
