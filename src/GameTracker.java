@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class GameTracker {
     private Tile[][] grid;
@@ -63,45 +64,53 @@ public class GameTracker {
         currentTile = (Tile) randomTiles.remove(0);
     }
 
-    public void shiftStack(ShiftStackConfig config, Tile... starterTile) {
-        Tile[][] temporaryGrid = grid;
+    public void shiftStack(ShiftStackConfig config) {
+        ArrayList<Tile[]>intermediaryGridList = new ArrayList<>();
+        for (Tile[] tRow : grid) {
+            ArrayList<Tile> newRow = new ArrayList<>();
+            for (Tile tile : tRow) {
+                newRow.add((Tile) tile.clone());
+            }
+            intermediaryGridList.add(newRow.toArray(new Tile[newRow.size()]));
+        }
+        intermediaryGrid = intermediaryGridList.toArray(new Tile[intermediaryGridList.size()][intermediaryGridList.get(0).length]);
+
+        System.out.println("\n");
+        System.out.println("At beginning " + Arrays.deepToString(grid[config.position]));
         Tile store1 = currentTile;
         Tile store2 = null;
         if (config.horizontal) {
-            System.out.println("\n");
-            for (int i = 0; i < temporaryGrid.length; i++) {
-                if (i == temporaryGrid.length) {
+            for (int i = 0; i < intermediaryGrid.length; i++) {
+                if (i == intermediaryGrid.length) {
                     displacedTile = store1;
-                    temporaryGrid[config.position][i - 1] = store2;
+                    intermediaryGrid[config.position][i - 1] = store2;
                     break;
                 }
                 store2 = store1;
-                store1 = temporaryGrid[config.position][i];
-                temporaryGrid[config.position][i] = store2;
+                store1 = intermediaryGrid[config.position][i];
+                intermediaryGrid[config.position][i] = store2;
+                gameFrame.renderGrid(true);
             }
-            System.out.println(Arrays.toString(temporaryGrid[config.position]));
         } else {
-            for (int i = 0; i < temporaryGrid[0].length; i++) {
-                if (i == temporaryGrid.length) {
+            for (int i = 0; i < intermediaryGrid[0].length; i++) {
+                if (i == intermediaryGrid.length) {
                     displacedTile = store1;
-                    temporaryGrid[i - 1][config.position] = store2;
+                    intermediaryGrid[i - 1][config.position] = store2;
                     break;
                 }
                 store2 = store1;
-                store1 = temporaryGrid[config.position][i];
-                temporaryGrid[i][config.position] = store2;
+                store1 = intermediaryGrid[config.position][i];
+                intermediaryGrid[i][config.position] = store2;
+                gameFrame.renderGrid(true);
             }
         }
-        intermediaryGrid = temporaryGrid;
-        System.out.println(Arrays.toString(intermediaryGrid[config.position]));
-//        System.out.println(Arrays.deepToString(grid));
-//        System.out.println(Arrays.deepToString(intermediaryGrid));
-        gameFrame.renderGrid(true);
+//        System.out.println(Arrays.toString(intermediaryGrid[config.position]));
+        System.out.println("At end " + Arrays.deepToString(grid[config.position]));
+
     }
 
     public Tile[][] getGrid() {
         if (intermediaryGrid != null) {
-            System.out.println("getting intermediary grid");
             return intermediaryGrid;
         } else {
             return grid;

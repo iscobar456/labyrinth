@@ -54,6 +54,13 @@ public class Tile {
                 '}';
     }
 
+    @Override
+    public Object clone() {
+        Tile newTile = new Tile(this.tileType, this.tileOrientation, this.playerOnTile);
+        newTile.outlets = Arrays.copyOf(this.outlets, this.outlets.length);
+        return newTile;
+    }
+
     public int[] getOutlets() {
         return outlets;
     }
