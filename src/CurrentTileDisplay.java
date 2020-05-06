@@ -1,35 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class CurrentTileDisplay extends JPanel{
-    CurrentTileDisplay(Tile current) {
-//        Current Tile Container
-        setLayout(new GridBagLayout());
-        setBackground(Color.decode("#0b0c10"));
+public class CurrentTileDisplay extends TileDisplay {
+    CurrentTileDisplay(Tile gameTile) {
+        super(gameTile, "Current Tile");
+    }
 
-//        Current Tile Label
-        JLabel currentTileLabel = new JLabel("Click to rotate");
-        currentTileLabel.setForeground(Color.WHITE);
-        GridBagConstraints ctlc = new GridBagConstraints();
-        ctlc.gridx = 0;
-        ctlc.gridy = 0;
-        ctlc.anchor = GridBagConstraints.PAGE_END;
-        add(currentTileLabel, ctlc);
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
 
-//        Current Tile Card
-        JButton currentTile = new JButton();
-        currentTile.setPreferredSize(new Dimension(125, 125));
-
-        currentTile.add(new GameTile(current));
-        currentTile.setBorderPainted(false);
-        currentTile.setFocusPainted(false);
-        currentTile.setContentAreaFilled(false);
-        currentTile.setMargin(new Insets(0,0,0,0));
-
-
-        GridBagConstraints ctcc = new GridBagConstraints();
-        ctcc.gridx = 0;
-        ctcc.gridy = 1;
-        add(currentTile, ctcc);
     }
 }

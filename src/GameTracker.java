@@ -80,28 +80,36 @@ public class GameTracker {
         Tile store1 = currentTile;
         Tile store2 = null;
         if (config.horizontal) {
-            for (int i = 0; i < intermediaryGrid.length; i++) {
-                if (i == intermediaryGrid.length) {
-                    displacedTile = store1;
-                    intermediaryGrid[config.position][i - 1] = store2;
-                    break;
+            if (config.upShift) {
+                for (int i = 0; i <= intermediaryGrid.length - 1; i++) {
+                    store2 = store1;
+                    store1 = intermediaryGrid[config.position][i];
+                    intermediaryGrid[config.position][i] = store2;
+                    gameFrame.renderGrid(true);
                 }
-                store2 = store1;
-                store1 = intermediaryGrid[config.position][i];
-                intermediaryGrid[config.position][i] = store2;
-                gameFrame.renderGrid(true);
+            } else {
+                for (int i = intermediaryGrid.length - 1; i >= 0; i--) {
+                    store2 = store1;
+                    store1 = intermediaryGrid[config.position][i];
+                    intermediaryGrid[config.position][i] = store2;
+                    gameFrame.renderGrid(true);
+                }
             }
         } else {
-            for (int i = 0; i < intermediaryGrid[0].length; i++) {
-                if (i == intermediaryGrid.length) {
-                    displacedTile = store1;
-                    intermediaryGrid[i - 1][config.position] = store2;
-                    break;
+            if (config.upShift) {
+                for (int i = 0; i <= intermediaryGrid[0].length - 1; i++) {
+                    store2 = store1;
+                    store1 = intermediaryGrid[i][config.position];
+                    intermediaryGrid[i][config.position] = store2;
+                    gameFrame.renderGrid(true);
                 }
-                store2 = store1;
-                store1 = intermediaryGrid[config.position][i];
-                intermediaryGrid[i][config.position] = store2;
-                gameFrame.renderGrid(true);
+            } else {
+                for (int i = intermediaryGrid[0].length - 1; i >= 0; i--) {
+                    store2 = store1;
+                    store1 = intermediaryGrid[i][config.position];
+                    intermediaryGrid[i][config.position] = store2;
+                    gameFrame.renderGrid(true);
+                }
             }
         }
 //        System.out.println(Arrays.toString(intermediaryGrid[config.position]));
