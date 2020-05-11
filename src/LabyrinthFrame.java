@@ -43,7 +43,7 @@ public class LabyrinthFrame {
         gameGrid.add(new InsertArrow('r', 5, this), new ArrowConstants(0, 6));
 
 //        Current Tile Container
-        CurrentTileDisplay currentTile = new CurrentTileDisplay(tracker.getCurrentTile());
+        CurrentTileDisplay currentTile = new CurrentTileDisplay(tracker.getCurrentTile(), this);
 
         f.add(currentTile);
         f.add(gameGrid, gameGridConstraints);
@@ -76,5 +76,9 @@ public class LabyrinthFrame {
 
     public GameTracker getTracker() {
         return tracker;
+    }
+
+    public void revalidate() {
+        f.revalidate();
     }
 }

@@ -65,6 +65,14 @@ public class Tile {
         return outlets;
     }
 
+    public int getTileType() {
+        return tileType;
+    }
+
+    public int getTileOrientation() {
+        return tileOrientation;
+    }
+
     public Player getPlayerOnTile() {
         return playerOnTile;
     }
