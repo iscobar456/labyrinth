@@ -13,5 +13,6 @@ public class CurrentTileDisplay extends TileDisplay {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         this.rotateGameTile(frame);
+        frame.getTracker().setCurrentTile(this.getTrackerTile());
     }
 }
