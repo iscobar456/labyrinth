@@ -75,8 +75,7 @@ public class GameTracker {
         }
         intermediaryGrid = intermediaryGridList.toArray(new Tile[intermediaryGridList.size()][intermediaryGridList.get(0).length]);
 
-        System.out.println("\n");
-        System.out.println("At beginning " + Arrays.deepToString(grid[config.position]));
+
         Tile store1 = currentTile;
         Tile store2 = null;
         if (config.horizontal) {
@@ -85,14 +84,12 @@ public class GameTracker {
                     store2 = store1;
                     store1 = intermediaryGrid[config.position][i];
                     intermediaryGrid[config.position][i] = store2;
-                    gameFrame.renderGrid(true);
                 }
             } else {
                 for (int i = intermediaryGrid.length - 1; i >= 0; i--) {
                     store2 = store1;
                     store1 = intermediaryGrid[config.position][i];
                     intermediaryGrid[config.position][i] = store2;
-                    gameFrame.renderGrid(true);
                 }
             }
         } else {
@@ -101,20 +98,17 @@ public class GameTracker {
                     store2 = store1;
                     store1 = intermediaryGrid[i][config.position];
                     intermediaryGrid[i][config.position] = store2;
-                    gameFrame.renderGrid(true);
                 }
             } else {
                 for (int i = intermediaryGrid[0].length - 1; i >= 0; i--) {
                     store2 = store1;
                     store1 = intermediaryGrid[i][config.position];
                     intermediaryGrid[i][config.position] = store2;
-                    gameFrame.renderGrid(true);
                 }
             }
         }
-//        System.out.println(Arrays.toString(intermediaryGrid[config.position]));
-        System.out.println("At end " + Arrays.deepToString(grid[config.position]));
-
+        displacedTile = store1;
+        gameFrame.renderGrid(true);
     }
 
     public Tile[][] getGrid() {

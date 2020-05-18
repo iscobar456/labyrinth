@@ -6,10 +6,12 @@ public class LabyrinthFrame {
     private JPanel gameGrid;
     private GridBagConstraints gameGridConstraints;
     private GameTracker tracker;
+    private CurrentTileDisplay currentTile;
+    private DisplacedTileDisplay displacedTile;
     public LabyrinthFrame() {
         f = new JFrame("Labyrinth");
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        f.setMinimumSize(new Dimension(700, 500));
+        f.setMinimumSize(new Dimension(1100, 700));
         f.setSize(new Dimension(800, 800));
         f.getContentPane().setBackground(Color.decode("#0b0c10"));
         f.setLayout(new GridBagLayout());
@@ -43,10 +45,14 @@ public class LabyrinthFrame {
         gameGrid.add(new InsertArrow('r', 5, this), new ArrowConstants(0, 6));
 
 //        Current Tile Container
-        CurrentTileDisplay currentTile = new CurrentTileDisplay(tracker.getCurrentTile(), this);
+        currentTile = new CurrentTileDisplay(tracker.getCurrentTile(), this);
+
+//        Displaced Tile Container
+        displacedTile = new DisplacedTileDisplay(tracker.getDisplacedTile());
 
         f.add(currentTile);
         f.add(gameGrid, gameGridConstraints);
+        f.add(displacedTile);
 
         f.setLocationRelativeTo(null);
         f.setVisible(true);
@@ -68,8 +74,15 @@ public class LabyrinthFrame {
                 if (reRender) {
                     gameGrid.remove(i * tRow.length + j);
                 }
-                this.gameGrid.add(new GameTile(t), newTileConsts, i * tRow.length + j);
+                if (t == tracker.getCurrentTile()) {
+                    this.gameGrid.add(new GameTile(t, true), newTileConsts, i * tRow.length + j);
+                } else {
+                    this.gameGrid.add(new GameTile(t), newTileConsts, i * tRow.length + j);
+                }
             }
+        }
+        if (tracker.getDisplacedTile() != null) {
+            displacedTile.update(tracker.getDisplacedTile());
         }
         f.revalidate();
     }
