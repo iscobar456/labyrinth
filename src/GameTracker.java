@@ -9,6 +9,7 @@ public class GameTracker {
     private Tile currentTile;
     private Tile displacedTile = null;
     private LabyrinthFrame gameFrame;
+//    private
     public GameTracker(LabyrinthFrame frame) {
         gameFrame = frame;
 

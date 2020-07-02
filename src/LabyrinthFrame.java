@@ -18,13 +18,19 @@ public class LabyrinthFrame {
         Image icon = Toolkit.getDefaultToolkit().getImage("media/maze.png");
         f.setIconImage(icon);
 
+//        Instructions
+        JLabel instructions = new JLabel("Click arrows to insert current tile. Use arrow keys to move character. Press the enter key to end turn.");
+        GridBagConstraints instructionsGridConstraints = new GridBagConstraints();
+        instructionsGridConstraints.gridy = 0;
+        instructionsGridConstraints.gridwidth = 3;
+
 //        Game Grid
         gameGrid = new JPanel();
         gameGrid.setLayout(new GridBagLayout());
         gameGrid.setBackground(Color.decode("#0b0c10"));
         gameGridConstraints = new GridBagConstraints();
         gameGridConstraints.gridx = 1;
-        gameGridConstraints.gridy = 0;
+        gameGridConstraints.gridy = 1;
 
 //        Initializing Game Grid
         tracker = new GameTracker(this);
@@ -46,13 +52,19 @@ public class LabyrinthFrame {
 
 //        Current Tile Container
         currentTile = new CurrentTileDisplay(tracker.getCurrentTile(), this);
+        GridBagConstraints currentTileConstraints = new GridBagConstraints();
+        currentTileConstraints.gridy = 1;
 
 //        Displaced Tile Container
         displacedTile = new DisplacedTileDisplay(tracker.getDisplacedTile());
+        GridBagConstraints displacedTileConstraints = new GridBagConstraints();
+        displacedTileConstraints.gridy = 1;
 
-        f.add(currentTile);
+
+        f.add(instructions, instructionsGridConstraints);
+        f.add(currentTile, currentTileConstraints);
         f.add(gameGrid, gameGridConstraints);
-        f.add(displacedTile);
+        f.add(displacedTile, displacedTileConstraints);
 
         f.setLocationRelativeTo(null);
         f.setVisible(true);
