@@ -1,10 +1,7 @@
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class Tile {
-    private Tile upperTile;
-    private Tile lowerTile;
-    private Tile leftTile;
-    private Tile rightTile;
     private int tileOrientation;
     private int tileType;
     private int[] outlets;
@@ -49,8 +46,31 @@ public class Tile {
         }
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "tileOrientation=" + tileOrientation +
+                ", tileType=" + tileType +
+                '}';
+    }
+
+    @Override
+    public Object clone() {
+        Tile newTile = new Tile(this.tileType, this.tileOrientation, this.playerOnTile);
+        newTile.outlets = Arrays.copyOf(this.outlets, this.outlets.length);
+        return newTile;
+    }
+
     public int[] getOutlets() {
         return outlets;
+    }
+
+    public int getTileType() {
+        return tileType;
+    }
+
+    public int getTileOrientation() {
+        return tileOrientation;
     }
 
     public Player getPlayerOnTile() {

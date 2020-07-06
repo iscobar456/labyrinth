@@ -1,6 +1,5 @@
-import sun.security.util.ArrayUtil;
-
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,15 +7,34 @@ import java.util.Collection;
 
 public class GameTile extends JPanel {
     private Tile tile;
+    private boolean isCurrentTile = false;
     public GameTile(Tile t) {
         tile = t;
-        constructTile();
+        if (tile == null) {
+            constructNullTile();
+        } else {
+            constructTile();
+        }
+    }
+
+    public GameTile(Tile t, boolean ct) {
+        tile = t;
+        isCurrentTile = ct;
+        if (tile == null) {
+            constructNullTile();
+        } else {
+            constructTile();
+        }
     }
 
     private void constructTile() {
-        this.setBackground(Color.decode("#7c7646"));
-        this.setPreferredSize(new Dimension(100, 100));
-        this.setLayout(new GridLayout(3, 3));
+        setBackground(Color.decode("#7c7646"));
+        if (isCurrentTile) {
+            setBorder(BorderFactory.createBevelBorder(0));
+
+        }
+        setPreferredSize(new Dimension(70, 70));
+        setLayout(new GridLayout(3, 3));
         for (int i = 0; i < 9; i++) {
             JPanel path = new JPanel();
             path.setBackground(Color.decode("#7c7646"));
@@ -40,8 +58,10 @@ public class GameTile extends JPanel {
             } else if (i == 7 && Arrays.stream(tile.getOutlets()).anyMatch(o -> o == TileConfiguration.DOWN)) {
                 path.setBackground(Color.decode("#bab99d"));
             }
-            this.add(path);
+            add(path);
         }
     }
-
+    private void constructNullTile() {
+        setBackground(Color.decode("#0b0c10"));
+    }
 }

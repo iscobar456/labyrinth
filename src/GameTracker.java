@@ -1,10 +1,18 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class GameTracker {
     private Tile[][] grid;
+    private Tile[][] intermediaryGrid = null;
     private Tile currentTile;
-    public GameTracker() {
+    private Tile displacedTile = null;
+    private LabyrinthFrame gameFrame;
+//    private
+    public GameTracker(LabyrinthFrame frame) {
+        gameFrame = frame;
+
         int c = TileConfiguration.CORNER;
         int s = TileConfiguration.STRAIGHT;
         int t = TileConfiguration.TEE;
@@ -57,8 +65,59 @@ public class GameTracker {
         currentTile = (Tile) randomTiles.remove(0);
     }
 
+    public void shiftStack(ShiftStackConfig config) {
+        ArrayList<Tile[]>intermediaryGridList = new ArrayList<>();
+        for (Tile[] tRow : grid) {
+            ArrayList<Tile> newRow = new ArrayList<>();
+            for (Tile tile : tRow) {
+                newRow.add((Tile) tile.clone());
+            }
+            intermediaryGridList.add(newRow.toArray(new Tile[newRow.size()]));
+        }
+        intermediaryGrid = intermediaryGridList.toArray(new Tile[intermediaryGridList.size()][intermediaryGridList.get(0).length]);
+
+
+        Tile store1 = currentTile;
+        Tile store2 = null;
+        if (config.horizontal) {
+            if (config.upShift) {
+                for (int i = 0; i <= intermediaryGrid.length - 1; i++) {
+                    store2 = store1;
+                    store1 = intermediaryGrid[config.position][i];
+                    intermediaryGrid[config.position][i] = store2;
+                }
+            } else {
+                for (int i = intermediaryGrid.length - 1; i >= 0; i--) {
+                    store2 = store1;
+                    store1 = intermediaryGrid[config.position][i];
+                    intermediaryGrid[config.position][i] = store2;
+                }
+            }
+        } else {
+            if (config.upShift) {
+                for (int i = 0; i <= intermediaryGrid[0].length - 1; i++) {
+                    store2 = store1;
+                    store1 = intermediaryGrid[i][config.position];
+                    intermediaryGrid[i][config.position] = store2;
+                }
+            } else {
+                for (int i = intermediaryGrid[0].length - 1; i >= 0; i--) {
+                    store2 = store1;
+                    store1 = intermediaryGrid[i][config.position];
+                    intermediaryGrid[i][config.position] = store2;
+                }
+            }
+        }
+        displacedTile = store1;
+        gameFrame.renderGrid(true);
+    }
+
     public Tile[][] getGrid() {
-        return grid;
+        if (intermediaryGrid != null) {
+            return intermediaryGrid;
+        } else {
+            return grid;
+        }
     }
 
     public void setCurrentTile(Tile currentTile) {
@@ -67,5 +126,9 @@ public class GameTracker {
 
     public Tile getCurrentTile() {
         return currentTile;
+    }
+
+    public Tile getDisplacedTile() {
+        return displacedTile;
     }
 }
