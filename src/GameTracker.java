@@ -8,6 +8,8 @@ public class GameTracker {
     private Tile[][] intermediaryGrid = null;
     private Tile currentTile;
     private Tile displacedTile = null;
+    private ArrayList<Player>players;
+    private Player currentPlayer;
     private LabyrinthFrame gameFrame;
 //    private
     public GameTracker(LabyrinthFrame frame) {
@@ -21,10 +23,14 @@ public class GameTracker {
         int d = TileConfiguration.DOWN;
         int l = TileConfiguration.LEFT;
 
-        Player player1 = new Player("Player 1", Color.red);
-        Player player2 = new Player("Player 2", Color.blue);
-        Player player3 = new Player("Player 3", Color.green);
-        Player player4 = new Player("Player 4", Color.yellow);
+//        Setting up players
+        Player player1 = new Player("Player Red", Color.red, true);
+        Player player2 = new Player("Player Blue", Color.blue);
+        Player player3 = new Player("Player Green", Color.green);
+        Player player4 = new Player("Player Yellow", Color.yellow);
+        currentPlayer = player1;
+        players = new ArrayList<Player>();
+        players.add(player1); players.add(player2); players.add(player3); players.add(player4);
 
         grid = new Tile[][] {
                 {new Tile(c, r, player1), null, new Tile(t, r), null, new Tile(t, r), null, new Tile(c, d, player2)},
@@ -35,6 +41,7 @@ public class GameTracker {
                 {null,                    null, null,           null, null,           null, null},
                 {new Tile(c, u, player4), null, new Tile(t, r), null, new Tile(t, r), null, new Tile(c, l, player3)},
         };
+//        player1.tile =
 
         ArrayList randomTiles = new ArrayList<Tile>();
 
@@ -66,6 +73,7 @@ public class GameTracker {
     }
 
     public void shiftStack(ShiftStackConfig config) {
+//        Cloning grid for intermediary grid
         ArrayList<Tile[]>intermediaryGridList = new ArrayList<>();
         for (Tile[] tRow : grid) {
             ArrayList<Tile> newRow = new ArrayList<>();
@@ -109,7 +117,11 @@ public class GameTracker {
             }
         }
         displacedTile = store1;
-        gameFrame.renderGrid(true);
+        gameFrame.renderGrid(true, false);
+    }
+
+    public void movePlayer(int keyCode) {
+
     }
 
     public Tile[][] getGrid() {
@@ -128,7 +140,24 @@ public class GameTracker {
         return currentTile;
     }
 
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
     public Tile getDisplacedTile() {
         return displacedTile;
+    }
+
+    public void endTurn() {
+        currentPlayer.setOnTurn(false);
+        Player nextPlayer = players.get(players.indexOf(currentPlayer) + 1 > 3 ? 0 : players.indexOf(currentPlayer) + 1);
+        nextPlayer.setOnTurn(true);
+        currentPlayer = nextPlayer;
+        grid = intermediaryGrid;
+        currentTile = displacedTile;
+        displacedTile = null;
+        System.out.println(currentTile);
+        intermediaryGrid = null;
+        gameFrame.renderGrid(true, true);
     }
 }

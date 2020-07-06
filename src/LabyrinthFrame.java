@@ -1,25 +1,32 @@
+import javafx.scene.input.KeyCode;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeListener;
+import java.util.InputMismatchException;
 
-public class LabyrinthFrame {
-    private JFrame f;
+public class LabyrinthFrame extends JFrame {
     private JPanel gameGrid;
     private GridBagConstraints gameGridConstraints;
     private GameTracker tracker;
     private CurrentTileDisplay currentTile;
     private DisplacedTileDisplay displacedTile;
     public LabyrinthFrame() {
-        f = new JFrame("Labyrinth");
-        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        f.setMinimumSize(new Dimension(1100, 700));
-        f.setSize(new Dimension(800, 800));
-        f.getContentPane().setBackground(Color.decode("#0b0c10"));
-        f.setLayout(new GridBagLayout());
+        setTitle("Labyrinth");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(1100, 700));
+        setSize(new Dimension(800, 800));
+        getContentPane().setBackground(Color.decode("#0b0c10"));
+        setLayout(new GridBagLayout());
         Image icon = Toolkit.getDefaultToolkit().getImage("media/maze.png");
-        f.setIconImage(icon);
+        setIconImage(icon);
 
 //        Instructions
         JLabel instructions = new JLabel("Click arrows to insert current tile. Use arrow keys to move character. Press the enter key to end turn.");
+        instructions.setForeground(Color.WHITE);
         GridBagConstraints instructionsGridConstraints = new GridBagConstraints();
         instructionsGridConstraints.gridy = 0;
         instructionsGridConstraints.gridwidth = 3;
@@ -30,11 +37,19 @@ public class LabyrinthFrame {
         gameGrid.setBackground(Color.decode("#0b0c10"));
         gameGridConstraints = new GridBagConstraints();
         gameGridConstraints.gridx = 1;
-        gameGridConstraints.gridy = 1;
+        gameGridConstraints.gridy = 2;
 
 //        Initializing Game Grid
         tracker = new GameTracker(this);
-        renderGrid(false);
+        renderGrid(false, false);
+
+//        Player Turn
+        JLabel playerTurn = new JLabel("Current Player: " + tracker.getCurrentPlayer().getPlayerName());
+        playerTurn.setForeground(Color.WHITE);
+        GridBagConstraints turnConstraints = new GridBagConstraints();
+        turnConstraints.gridy = 1;
+        turnConstraints.ipady = 20;
+        turnConstraints.gridwidth = 3;
 
 //        Creating and assigning arrows
         gameGrid.add(new InsertArrow('d', 1, this), new ArrowConstants(2, 0));
@@ -53,28 +68,64 @@ public class LabyrinthFrame {
 //        Current Tile Container
         currentTile = new CurrentTileDisplay(tracker.getCurrentTile(), this);
         GridBagConstraints currentTileConstraints = new GridBagConstraints();
-        currentTileConstraints.gridy = 1;
+        currentTileConstraints.gridy = 2;
 
 //        Displaced Tile Container
         displacedTile = new DisplacedTileDisplay(tracker.getDisplacedTile());
         GridBagConstraints displacedTileConstraints = new GridBagConstraints();
-        displacedTileConstraints.gridy = 1;
+        displacedTileConstraints.gridy = 2;
 
+//        Key Bindings
+        InputMap im = gameGrid.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "endTurn");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "moveUp");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moveRight");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moveDown");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moveLeft");
 
-        f.add(instructions, instructionsGridConstraints);
-        f.add(currentTile, currentTileConstraints);
-        f.add(gameGrid, gameGridConstraints);
-        f.add(displacedTile, displacedTileConstraints);
+        ActionMap ap = gameGrid.getActionMap();
+        ap.put("endTurn", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                if (tracker.getDisplacedTile() != null) {
+                    tracker.endTurn();
+                }
+            }
+        });
+        ap.put("moveUp", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("performing an action (UP)");
+            }
+        });
+        ap.put("moveRight", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("performing an action (RIGHT)");
+            }
+        });
+        ap.put("moveDown", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("performing an action (DOWN)");
+            }
+        });
+        ap.put("moveLeft", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("performing an action (LEFT)");
+            }
+        });
 
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
+        add(instructions, instructionsGridConstraints);
+        add(playerTurn, turnConstraints);
+        add(currentTile, currentTileConstraints);
+        add(gameGrid, gameGridConstraints);
+        add(displacedTile, displacedTileConstraints);
 
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
     public static void main(String args[]) {
         new LabyrinthFrame();
     }
 
-    public void renderGrid(boolean reRender) {
+    public void renderGrid(boolean reRender, boolean newTurn) {
         GridBagConstraints newTileConsts = new GridBagConstraints();
         Tile[][] gridToRender = tracker.getGrid();
         for (int i = 0; i < gridToRender.length; i++) {
@@ -96,14 +147,14 @@ public class LabyrinthFrame {
         if (tracker.getDisplacedTile() != null) {
             displacedTile.update(tracker.getDisplacedTile());
         }
-        f.revalidate();
+        if (newTurn) {
+            currentTile.setTrackerTile(tracker.getCurrentTile());
+            displacedTile.update(tracker.getDisplacedTile());
+        }
+        revalidate();
     }
 
     public GameTracker getTracker() {
         return tracker;
-    }
-
-    public void revalidate() {
-        f.revalidate();
     }
 }
