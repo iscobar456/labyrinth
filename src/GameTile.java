@@ -31,6 +31,8 @@ public class GameTile extends JPanel {
         setBackground(Color.decode("#7c7646"));
         if (isCurrentTile) {
             setBorder(BorderFactory.createBevelBorder(0));
+        } else {
+            setBorder(BorderFactory.createEtchedBorder());
         }
         setPreferredSize(new Dimension(70, 70));
         setLayout(new GridLayout(3, 3));
