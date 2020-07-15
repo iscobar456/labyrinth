@@ -4,6 +4,7 @@ public class Player {
     private int id;
     private String playerName;
     private boolean onTurn = false;
+    private boolean hasMovedGrid = false;
     public Color playerColor;
 
     public Player(String name, Color color) {
@@ -31,5 +32,14 @@ public class Player {
 
     public void setOnTurn(boolean onTurn) {
         this.onTurn = onTurn;
+        this.setHasMovedGrid(false);
+    }
+
+    public boolean hasMovedGrid() {
+        return hasMovedGrid;
+    }
+
+    public void setHasMovedGrid(boolean hasMovedGrid) {
+        this.hasMovedGrid = hasMovedGrid;
     }
 }

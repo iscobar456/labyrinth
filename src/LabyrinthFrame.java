@@ -1,5 +1,3 @@
-import javafx.scene.input.KeyCode;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -75,42 +73,10 @@ public class LabyrinthFrame extends JFrame {
         GridBagConstraints displacedTileConstraints = new GridBagConstraints();
         displacedTileConstraints.gridy = 2;
 
-//        Key Bindings
+//        Start Key Bindings
         InputMap im = gameGrid.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "endTurn");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "moveUp");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moveRight");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moveDown");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moveLeft");
-
-        ActionMap ap = gameGrid.getActionMap();
-        ap.put("endTurn", new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                if (tracker.getDisplacedTile() != null) {
-                    tracker.endTurn();
-                }
-            }
-        });
-        ap.put("moveUp", new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("performing an action (UP)");
-            }
-        });
-        ap.put("moveRight", new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("performing an action (RIGHT)");
-            }
-        });
-        ap.put("moveDown", new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("performing an action (DOWN)");
-            }
-        });
-        ap.put("moveLeft", new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("performing an action (LEFT)");
-            }
-        });
+        ActionMap am = gameGrid.getActionMap();
+        KeyListeners.startListeners(tracker, am, im);
 
         add(instructions, instructionsGridConstraints);
         add(playerTurn, turnConstraints);

@@ -2,6 +2,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 public class GameTracker {
     private Tile[][] grid;
@@ -120,10 +121,6 @@ public class GameTracker {
         gameFrame.renderGrid(true, false);
     }
 
-    public void movePlayer(int keyCode) {
-
-    }
-
     public Tile[][] getGrid() {
         if (intermediaryGrid != null) {
             return intermediaryGrid;
@@ -148,16 +145,88 @@ public class GameTracker {
         return displacedTile;
     }
 
+    public void updateGrid() {
+        grid = intermediaryGrid;
+        currentTile = displacedTile;
+        displacedTile = null;
+        intermediaryGrid = null;
+        gameFrame.renderGrid(true, true);
+        this.currentPlayer.setHasMovedGrid(true);
+        System.out.println("moving grid");
+    }
+
     public void endTurn() {
+        System.out.println("ending turn");
+//        updateGrid();
         currentPlayer.setOnTurn(false);
         Player nextPlayer = players.get(players.indexOf(currentPlayer) + 1 > 3 ? 0 : players.indexOf(currentPlayer) + 1);
         nextPlayer.setOnTurn(true);
         currentPlayer = nextPlayer;
-        grid = intermediaryGrid;
-        currentTile = displacedTile;
-        displacedTile = null;
-        System.out.println(currentTile);
-        intermediaryGrid = null;
-        gameFrame.renderGrid(true, true);
+    }
+
+    public void movePlayer(String direction) {
+//        If the current player hasn't moved the grid, don't let them move
+        if (!this.currentPlayer.hasMovedGrid()){
+            System.out.println(this.currentPlayer.hasMovedGrid());
+            return;
+        }
+//        System.out.println(direction);
+
+//        Find the tile that the current player is on
+        int[] currentPlayerTileLocation = null;
+        Tile currentPlayerTile = null;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                Tile tile = grid[i][j];
+                if (tile.getPlayerOnTile() == this.currentPlayer) {
+                    currentPlayerTileLocation = new int[] {i, j};
+                    currentPlayerTile = tile;
+                }
+            }
+        }
+//        System.out.println(currentPlayerTile + " \\ " + Arrays.toString(currentPlayerTileLocation));
+
+//        Moving the player
+        if (direction.equalsIgnoreCase("UP")) {
+//            If the tile has an upwards -> (0) outlet and it is not on the top row, continue program execution.
+            if (currentPlayerTileLocation[0] - 1 >= 0 && IntStream.of(currentPlayerTile.getOutlets()).anyMatch(n -> n == 0)) {
+//                Get the tile above the player's current tile
+                Tile nextPlayerTile = grid[currentPlayerTileLocation[0] - 1][currentPlayerTileLocation[1]];
+
+//                If the tile above has a downwards outlet, move the player onto it.
+                if (IntStream.of(nextPlayerTile.getOutlets()).anyMatch(n -> n == 2)) {
+                    nextPlayerTile.setPlayerOnTile(currentPlayer);
+                    currentPlayerTile.setPlayerOnTile(null);
+                    gameFrame.renderGrid(true, false);
+                }
+            }
+        } else if (direction.equalsIgnoreCase("RIGHT")) {
+            if (currentPlayerTileLocation[1] + 1 <= 6 && IntStream.of(currentPlayerTile.getOutlets()).anyMatch(n -> n == 1)) {
+                Tile nextPlayerTile = grid[currentPlayerTileLocation[0]][currentPlayerTileLocation[1] + 1];
+                if (IntStream.of(nextPlayerTile.getOutlets()).anyMatch(n -> n == 3)) {
+                    nextPlayerTile.setPlayerOnTile(currentPlayer);
+                    currentPlayerTile.setPlayerOnTile(null);
+                    gameFrame.renderGrid(true, false);
+                }
+            }
+        } else if (direction.equalsIgnoreCase("DOWN")) {
+            if (currentPlayerTileLocation[0] + 1 <= 6 && IntStream.of(currentPlayerTile.getOutlets()).anyMatch(n -> n == 2)) {
+                Tile nextPlayerTile = grid[currentPlayerTileLocation[0] + 1][currentPlayerTileLocation[1]];
+                if (IntStream.of(nextPlayerTile.getOutlets()).anyMatch(n -> n == 0)) {
+                    nextPlayerTile.setPlayerOnTile(currentPlayer);
+                    currentPlayerTile.setPlayerOnTile(null);
+                    gameFrame.renderGrid(true, false);
+                }
+            }
+        } else if (direction.equalsIgnoreCase("LEFT")) {
+            if (currentPlayerTileLocation[1] - 1 >= 0 && IntStream.of(currentPlayerTile.getOutlets()).anyMatch(n -> n == 3)) {
+                Tile nextPlayerTile = grid[currentPlayerTileLocation[0]][currentPlayerTileLocation[1] - 1];
+                if (IntStream.of(nextPlayerTile.getOutlets()).anyMatch(n -> n == 1)) {
+                    nextPlayerTile.setPlayerOnTile(currentPlayer);
+                    currentPlayerTile.setPlayerOnTile(null);
+                    gameFrame.renderGrid(true, false);
+                }
+            }
+        }
     }
 }
