@@ -81,6 +81,13 @@ public class CurrentTileDisplay extends JButton implements ActionListener {
         frame.revalidate();
     }
 
+    public void setTrackerTile(Tile trackerTile) {
+        this.trackerTile = trackerTile;
+        displayTile.remove(gameTile);
+        this.gameTile = new GameTile(this.trackerTile);
+        displayTile.add(gameTile);
+    }
+
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         this.rotateGameTile(frame);
