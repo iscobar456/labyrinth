@@ -141,6 +141,10 @@ public class GameTracker {
         return currentPlayer;
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     public Tile getDisplacedTile() {
         return displacedTile;
     }
@@ -157,11 +161,12 @@ public class GameTracker {
 
     public void endTurn() {
         System.out.println("ending turn");
-//        updateGrid();
         currentPlayer.setOnTurn(false);
         Player nextPlayer = players.get(players.indexOf(currentPlayer) + 1 > 3 ? 0 : players.indexOf(currentPlayer) + 1);
         nextPlayer.setOnTurn(true);
         currentPlayer = nextPlayer;
+        System.out.println(grid);
+        gameFrame.renderGrid(true, true);
     }
 
     public void movePlayer(String direction) {
@@ -228,5 +233,7 @@ public class GameTracker {
                 }
             }
         }
+        System.out.print("After moving player: ");
+        System.out.println(grid);
     }
 }

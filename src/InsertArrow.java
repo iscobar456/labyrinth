@@ -49,6 +49,7 @@ public class InsertArrow extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent){
+        gameFrame.getTracker().getCurrentPlayer().setHasInsertedTile(true);
         gameFrame.getTracker().shiftStack(config);
     }
 }

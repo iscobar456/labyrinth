@@ -4,8 +4,10 @@ public class Player {
     private int id;
     private String playerName;
     private boolean onTurn = false;
+    private boolean hasInsertedTile = false;
     private boolean hasMovedGrid = false;
-    public Color playerColor;
+    private Color playerColor;
+    private int playerScore = 0;
 
     public Player(String name, Color color) {
         playerName = name;
@@ -26,6 +28,10 @@ public class Player {
         return playerName;
     }
 
+    public int getPlayerScore() {
+        return playerScore;
+    }
+
     public boolean isOnTurn() {
         return onTurn;
     }
@@ -41,5 +47,13 @@ public class Player {
 
     public void setHasMovedGrid(boolean hasMovedGrid) {
         this.hasMovedGrid = hasMovedGrid;
+    }
+
+    public boolean hasInsertedTile() {
+        return hasInsertedTile;
+    }
+
+    public void setHasInsertedTile(boolean hasInsertedTile) {
+        this.hasInsertedTile = hasInsertedTile;
     }
 }

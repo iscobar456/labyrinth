@@ -15,7 +15,7 @@ public class KeyListeners {
             public void actionPerformed(ActionEvent e) {
                 if (tracker.getCurrentPlayer().hasMovedGrid()) {
                     tracker.endTurn();
-                } else {
+                } else if (tracker.getCurrentPlayer().hasInsertedTile()) {
                     tracker.updateGrid();
                 }
             }
