@@ -41,10 +41,35 @@ public class GameTile extends JPanel {
             path.setBackground(Color.decode("#7c7646"));
             if (i == 4) {
                 path.setBackground(Color.decode("#bab99d"));
-                if (tile.getPlayerOnTile() != null) {
+                if (tile.getPlayersOnTile() != null) {
                     path.setLayout(new GridBagLayout());
                     JPanel playerPiece = new JPanel();
-                    playerPiece.setBackground(tile.getPlayerOnTile().getPlayerColor());
+                    playerPiece.setBackground(new Color(0, 0, 0, 0));
+                    // Next 20 lines divides up the player piece based on how many players share the same tile
+                    playerPiece.setLayout(new GridLayout(2, 2));
+                    for (int j = 0; j < 4; j++) {
+                        JPanel playerSubPiece = new JPanel();
+                        playerSubPiece.setPreferredSize(new Dimension(6,6));
+                        if (tile.getPlayersOnTile().length == 1) {
+                            playerSubPiece.setBackground(tile.getPlayersOnTile()[0].getPlayerColor());
+                        } else if (tile.getPlayersOnTile().length == 2) {
+                            if (j % 2 == 0) {
+                                playerSubPiece.setBackground(tile.getPlayersOnTile()[0].getPlayerColor());
+                            } else {
+                                playerSubPiece.setBackground(tile.getPlayersOnTile()[1].getPlayerColor());
+                            }
+                        } else if (tile.getPlayersOnTile().length == 3) {
+                            if (j != 3) {
+                                playerSubPiece.setBackground(tile.getPlayersOnTile()[1].getPlayerColor());
+                            }
+                        } else {
+                            playerSubPiece.setBackground(tile.getPlayersOnTile()[j].getPlayerColor());
+                        }
+
+                        playerPiece.add(playerSubPiece);
+                    }
+
+
                     GridBagConstraints playerPieceConstraints = new GridBagConstraints();
                     playerPieceConstraints.ipady = 5;
                     playerPieceConstraints.ipadx = 5;

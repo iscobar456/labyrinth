@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class GameTracker {
     private Tile[][] grid;
@@ -34,18 +35,17 @@ public class GameTracker {
         players.add(player1); players.add(player2); players.add(player3); players.add(player4);
 
         grid = new Tile[][] {
-                {new Tile(c, r, player1), null, new Tile(t, r), null, new Tile(t, r), null, new Tile(c, d, player2)},
-                {null,                    null, null,           null, null,           null, null},
-                {new Tile(t, u),          null, new Tile(t, u), null, new Tile(t, r), null, new Tile(t, d)},
-                {null,                    null, null,           null, null,           null, null},
-                {new Tile(t, u),          null, new Tile(t, l), null, new Tile(t, d), null, new Tile(t, d)},
-                {null,                    null, null,           null, null,           null, null},
-                {new Tile(c, u, player4), null, new Tile(t, r), null, new Tile(t, r), null, new Tile(c, l, player3)},
+                {new Tile(c, r, new Player[] {player1}), null, new Tile(t, r), null, new Tile(t, r), null, new Tile(c, d, new Player[] {player2})},
+                {null,                                   null, null,           null, null,           null, null                                  },
+                {new Tile(t, u),                         null, new Tile(t, u), null, new Tile(t, r), null, new Tile(t, d)                        },
+                {null,                                   null, null,           null, null,           null, null                                  },
+                {new Tile(t, u),                         null, new Tile(t, l), null, new Tile(t, d), null, new Tile(t, d)                        },
+                {null,                                   null, null,           null, null,           null, null                                  },
+                {new Tile(c, u, new Player[] {player4}), null, new Tile(t, r), null, new Tile(t, r), null, new Tile(c, l, new Player[] {player3})},
         };
-//        player1.tile =
 
         ArrayList randomTiles = new ArrayList<Tile>();
-
+//        Creating new random/movable tiles and assigning starting orientation.
         for (int i = 0; i < 12; i++) {
             int orientation = (int)(Math.random() * 4);
             randomTiles.add(new Tile(TileConfiguration.STRAIGHT, orientation));
@@ -74,6 +74,12 @@ public class GameTracker {
     }
 
     public void shiftStack(ShiftStackConfig config) {
+//        If player was transported across the grid in the previous stack shift,
+//        remove it from current tile before shifting again.
+        if (currentTile.getPlayersOnTile() != null) {
+            currentTile.setPlayersOnTile(null);
+        }
+
 //        Cloning grid for intermediary grid
         ArrayList<Tile[]>intermediaryGridList = new ArrayList<>();
         for (Tile[] tRow : grid) {
@@ -118,6 +124,12 @@ public class GameTracker {
             }
         }
         displacedTile = store1;
+
+        if (displacedTile.getPlayersOnTile() != null) {
+            currentTile.setPlayersOnTile(displacedTile.getPlayersOnTile());
+            displacedTile.setPlayersOnTile(null);
+        }
+
         gameFrame.renderGrid(true, false);
     }
 
@@ -169,6 +181,35 @@ public class GameTracker {
         gameFrame.renderGrid(true, true);
     }
 
+    private void swapPlayerPositions(Tile currentPlayerTile, Tile nextPlayerTile) {
+//            If the next tile has players on it, concatenate the player onto the player list
+        if (nextPlayerTile.getPlayersOnTile() != null) {
+            System.out.println("Next tile has a player!");
+            nextPlayerTile.setPlayersOnTile(
+                    Stream.concat(
+                            Arrays.stream(new Player[] {currentPlayer}),
+                            Arrays.stream(nextPlayerTile.getPlayersOnTile())
+                    ).toArray(Player[]::new)
+            );
+        } else {
+            nextPlayerTile.setPlayersOnTile(new Player[] {currentPlayer});
+        }
+//                    If the current tile has more than one player, remove the current player, otherwise set null.
+        if (currentPlayerTile.getPlayersOnTile().length > 1) {
+            System.out.println("current tile has 2+ players!");
+            Player[] newPlayerList = new Player[currentPlayerTile.getPlayersOnTile().length - 1];
+            for (int i = 0, k = 0; i < currentPlayerTile.getPlayersOnTile().length; i++) {
+                if (currentPlayerTile.getPlayersOnTile()[i] != currentPlayer) {
+                    newPlayerList[k] = currentPlayerTile.getPlayersOnTile()[i];
+                    k++;
+                }
+            }
+            currentPlayerTile.setPlayersOnTile(newPlayerList);
+        } else {
+            currentPlayerTile.setPlayersOnTile(null);
+        }
+    }
+
     public void movePlayer(String direction) {
 //        If the current player hasn't moved the grid, don't let them move
         if (!this.currentPlayer.hasMovedGrid()){
@@ -183,9 +224,20 @@ public class GameTracker {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 Tile tile = grid[i][j];
-                if (tile.getPlayerOnTile() == this.currentPlayer) {
-                    currentPlayerTileLocation = new int[] {i, j};
-                    currentPlayerTile = tile;
+                if (tile.getPlayersOnTile() != null) {
+                    int indexOfPlayer = -1;
+                    for (int k = 0; k < tile.getPlayersOnTile().length; k++) {
+                        if (tile.getPlayersOnTile()[k] == this.currentPlayer) {
+                            indexOfPlayer = k;
+                            break;
+                        }
+                    }
+                    System.out.println(indexOfPlayer);
+                    if (indexOfPlayer != -1) {
+                        currentPlayerTileLocation = new int[] {i, j};
+                        currentPlayerTile = tile;
+                        break;
+                    }
                 }
             }
         }
@@ -200,8 +252,7 @@ public class GameTracker {
 
 //                If the tile above has a downwards outlet, move the player onto it.
                 if (IntStream.of(nextPlayerTile.getOutlets()).anyMatch(n -> n == 2)) {
-                    nextPlayerTile.setPlayerOnTile(currentPlayer);
-                    currentPlayerTile.setPlayerOnTile(null);
+                    swapPlayerPositions(currentPlayerTile, nextPlayerTile);
                     gameFrame.renderGrid(true, false);
                 }
             }
@@ -209,8 +260,7 @@ public class GameTracker {
             if (currentPlayerTileLocation[1] + 1 <= 6 && IntStream.of(currentPlayerTile.getOutlets()).anyMatch(n -> n == 1)) {
                 Tile nextPlayerTile = grid[currentPlayerTileLocation[0]][currentPlayerTileLocation[1] + 1];
                 if (IntStream.of(nextPlayerTile.getOutlets()).anyMatch(n -> n == 3)) {
-                    nextPlayerTile.setPlayerOnTile(currentPlayer);
-                    currentPlayerTile.setPlayerOnTile(null);
+                    swapPlayerPositions(currentPlayerTile, nextPlayerTile);
                     gameFrame.renderGrid(true, false);
                 }
             }
@@ -218,8 +268,7 @@ public class GameTracker {
             if (currentPlayerTileLocation[0] + 1 <= 6 && IntStream.of(currentPlayerTile.getOutlets()).anyMatch(n -> n == 2)) {
                 Tile nextPlayerTile = grid[currentPlayerTileLocation[0] + 1][currentPlayerTileLocation[1]];
                 if (IntStream.of(nextPlayerTile.getOutlets()).anyMatch(n -> n == 0)) {
-                    nextPlayerTile.setPlayerOnTile(currentPlayer);
-                    currentPlayerTile.setPlayerOnTile(null);
+                    swapPlayerPositions(currentPlayerTile, nextPlayerTile);
                     gameFrame.renderGrid(true, false);
                 }
             }
@@ -227,8 +276,7 @@ public class GameTracker {
             if (currentPlayerTileLocation[1] - 1 >= 0 && IntStream.of(currentPlayerTile.getOutlets()).anyMatch(n -> n == 3)) {
                 Tile nextPlayerTile = grid[currentPlayerTileLocation[0]][currentPlayerTileLocation[1] - 1];
                 if (IntStream.of(nextPlayerTile.getOutlets()).anyMatch(n -> n == 1)) {
-                    nextPlayerTile.setPlayerOnTile(currentPlayer);
-                    currentPlayerTile.setPlayerOnTile(null);
+                    swapPlayerPositions(currentPlayerTile, nextPlayerTile);
                     gameFrame.renderGrid(true, false);
                 }
             }

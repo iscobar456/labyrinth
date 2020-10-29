@@ -72,7 +72,7 @@ public class CurrentTileDisplay extends JButton implements ActionListener {
         Tile newTile = new Tile(
                 this.trackerTile.getTileType(),
                 this.trackerTile.getTileOrientation() + 1 > 3 ? 0 : this.trackerTile.getTileOrientation() + 1,
-                this.trackerTile.getPlayerOnTile()
+                this.trackerTile.getPlayersOnTile()
         );
         this.trackerTile = newTile;
         displayTile.remove(gameTile);

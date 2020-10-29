@@ -1,6 +1,6 @@
 import java.awt.Color;
 
-public class Player {
+public class Player implements Comparable{
     private int id;
     private String playerName;
     private boolean onTurn = false;
@@ -55,5 +55,10 @@ public class Player {
 
     public void setHasInsertedTile(boolean hasInsertedTile) {
         this.hasInsertedTile = hasInsertedTile;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }
