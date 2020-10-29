@@ -7,6 +7,8 @@ public class LabyrinthFrame extends JFrame {
     private GameTracker tracker;
     private CurrentTileDisplay currentTile;
     private ScoreCounter scoreCounter;
+    private JPanel playerTurnContainer;
+    private JLabel playerTurnLabel;
     private JLabel playerTurn;
     private DisplacedTileDisplay displacedTile;
     public LabyrinthFrame() {
@@ -40,21 +42,41 @@ public class LabyrinthFrame extends JFrame {
         scConstraints.gridwidth = 1;
 
 //        Instructions
-        JLabel instructions = new JLabel("Click arrows to insert current tile. Use arrow keys to move character. Press the enter key to end turn.");
-        instructions.setForeground(Color.WHITE);
+        JPanel instructionsContainer = new JPanel();
+        instructionsContainer.setBackground(Color.decode("#0b0c10"));
+        instructionsContainer.setLayout(new GridLayout(2, 1));
         GridBagConstraints instructionsGridConstraints = new GridBagConstraints();
         instructionsGridConstraints.gridy = 0;
         instructionsGridConstraints.gridx = 1;
-        instructionsGridConstraints.gridwidth = 2;
+        instructionsGridConstraints.gridwidth = 1;
+
+        JLabel instruction1 = new JLabel("Click arrows to insert current tile.", JLabel.CENTER);
+        instruction1.setForeground(Color.WHITE);
+
+        JLabel instruction2 = new JLabel("Use arrow keys to move character. Press the enter key to place tile and then end turn.", JLabel.CENTER);
+        instruction2.setForeground(Color.WHITE);
+
+        instructionsContainer.add(instruction1);
+        instructionsContainer.add(instruction2);
 
 //        Player Turn
-        playerTurn = new JLabel("Current Player: " + tracker.getCurrentPlayer().getPlayerName());
-        playerTurn.setForeground(Color.WHITE);
+        playerTurnContainer = new JPanel();
+        playerTurnContainer.setBackground(Color.decode("#0b0c10"));
         GridBagConstraints turnConstraints = new GridBagConstraints();
         turnConstraints.gridy = 1;
         turnConstraints.gridx = 1;
         turnConstraints.ipady = 20;
-        turnConstraints.gridwidth = 2;
+        turnConstraints.gridwidth = 1;
+
+        playerTurnLabel = new JLabel("Current Player: ");
+        playerTurnLabel.setForeground(Color.WHITE);
+
+        playerTurn = new JLabel(tracker.getCurrentPlayer().getPlayerName());
+        playerTurn.setForeground(tracker.getCurrentPlayer().getPlayerColor());
+
+        playerTurnContainer.add(playerTurnLabel);
+        playerTurnContainer.add(playerTurn);
+
 
 //        Creating and assigning arrows
         gameGrid.add(new InsertArrow('d', 1, this), new ArrowConstants(2, 0));
@@ -85,8 +107,8 @@ public class LabyrinthFrame extends JFrame {
         ActionMap am = gameGrid.getActionMap();
         KeyListeners.startListeners(tracker, am, im);
 
-        add(instructions, instructionsGridConstraints);
-        add(playerTurn, turnConstraints);
+        add(instructionsContainer, instructionsGridConstraints);
+        add(playerTurnContainer, turnConstraints);
         add(scoreCounter, scConstraints);
         add(currentTile, currentTileConstraints);
         add(gameGrid, gameGridConstraints);
@@ -123,7 +145,8 @@ public class LabyrinthFrame extends JFrame {
         }
         if (newTurn) {
             scoreCounter.setNewScores();
-            playerTurn.setText("Current Player: " + tracker.getCurrentPlayer().getPlayerName());
+            playerTurn.setText(tracker.getCurrentPlayer().getPlayerName());
+            playerTurn.setForeground(tracker.getCurrentPlayer().getPlayerColor());
             currentTile.setTrackerTile(tracker.getCurrentTile());
             displacedTile.update(tracker.getDisplacedTile());
         }
