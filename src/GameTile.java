@@ -44,7 +44,7 @@ public class GameTile extends JPanel {
                 if (tile.getPlayersOnTile() != null) {
                     path.setLayout(new GridBagLayout());
                     JPanel playerPiece = new JPanel();
-                    playerPiece.setBackground(new Color(0, 0, 0, 0));
+                    playerPiece.setBackground(Color.decode("#bab99d"));
                     // Next 20 lines divides up the player piece based on how many players share the same tile
                     playerPiece.setLayout(new GridLayout(2, 2));
                     for (int j = 0; j < 4; j++) {
@@ -60,7 +60,9 @@ public class GameTile extends JPanel {
                             }
                         } else if (tile.getPlayersOnTile().length == 3) {
                             if (j != 3) {
-                                playerSubPiece.setBackground(tile.getPlayersOnTile()[1].getPlayerColor());
+                                playerSubPiece.setBackground(tile.getPlayersOnTile()[j].getPlayerColor());
+                            } else {
+                                playerSubPiece.setBackground(Color.decode("#bab99d"));
                             }
                         } else {
                             playerSubPiece.setBackground(tile.getPlayersOnTile()[j].getPlayerColor());

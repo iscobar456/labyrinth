@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9e0c7bd-c60a-4178-9339-0c857561c9a2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/CurrentTileDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/CurrentTileDisplay.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/GameTile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/GameTile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/GameTracker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/GameTracker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/LabyrinthFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/LabyrinthFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/META-INF/Labyrinth.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/Tile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/Tile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CurrentTileDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CurrentTileDisplay.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameTracker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,26 +94,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="730" y="221" key="#com.intellij.ide.util.MemberChooser/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1603950453071" />
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1603953382153">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1603953827584">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1874" height="287" key="GridCell.Tab.0.bottom/0.1080.1920.1080/1.0.1920.1080@1.0.1920.1080" timestamp="1597621438020" />
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1603953382153" />
-    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1603953382153">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1603953827584" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1603953827584">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1874" height="287" key="GridCell.Tab.0.center/0.1080.1920.1080/1.0.1920.1080@1.0.1920.1080" timestamp="1597621438020" />
-    <state width="1877" height="281" key="GridCell.Tab.0.center/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1603953382153" />
-    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1603953382153">
+    <state width="1877" height="281" key="GridCell.Tab.0.center/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1603953827584" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1603953827583">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1874" height="287" key="GridCell.Tab.0.left/0.1080.1920.1080/1.0.1920.1080@1.0.1920.1080" timestamp="1597621438020" />
-    <state width="1877" height="281" key="GridCell.Tab.0.left/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1603953382153" />
-    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1603953382153">
+    <state width="1877" height="281" key="GridCell.Tab.0.left/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1603953827583" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1603953827584">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1874" height="287" key="GridCell.Tab.0.right/0.1080.1920.1080/1.0.1920.1080@1.0.1920.1080" timestamp="1597621438020" />
-    <state width="1877" height="281" key="GridCell.Tab.0.right/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1603953382153" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1603953827584" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603940788334">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
