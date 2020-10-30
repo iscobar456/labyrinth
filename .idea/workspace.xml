@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9e0c7bd-c60a-4178-9339-0c857561c9a2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/CurrentObjective.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Treasure.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/GameTile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/GameTile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/GameTracker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/GameTracker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/LabyrinthFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/LabyrinthFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Labyrinth/Tile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Labyrinth/Tile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameTracker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KeyListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KeyListeners.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LabyrinthFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LabyrinthFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScoreCounter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScoreCounter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Treasure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Treasure.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +35,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
   </component>
   <component name="RunManager">
     <configuration name="LabyrinthFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -74,6 +62,11 @@
         </serviceView>
       </list>
     </option>
+  </component>
+  <component name="StructuralSearchPlugin">
+    <searchConfiguration name="user defined" created="1604024830162" text="javax.swing.ImageIcon" recursive="true" caseInsensitive="true" type="JAVA" pattern_context="default" scope_type="PROJECT" scope_descriptor="" history="1">
+      <constraint name="__context__" within="" contains="" />
+    </searchConfiguration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -106,29 +99,37 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="730" y="221" key="#com.intellij.ide.util.MemberChooser/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1603950453071" />
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1604020298299">
+    <state x="488" y="348" width="943" height="344" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog" timestamp="1604024830138">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="488" y="348" width="943" height="344" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604024830138" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1604020791563">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1874" height="287" key="GridCell.Tab.0.bottom/0.1080.1920.1080/1.0.1920.1080@1.0.1920.1080" timestamp="1597621438020" />
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604020298299" />
-    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1604020298299">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604020791563" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1604020791563">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1874" height="287" key="GridCell.Tab.0.center/0.1080.1920.1080/1.0.1920.1080@1.0.1920.1080" timestamp="1597621438020" />
-    <state width="1877" height="281" key="GridCell.Tab.0.center/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604020298299" />
-    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1604020298299">
+    <state width="1877" height="281" key="GridCell.Tab.0.center/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604020791563" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1604020791563">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1874" height="287" key="GridCell.Tab.0.left/0.1080.1920.1080/1.0.1920.1080@1.0.1920.1080" timestamp="1597621438020" />
-    <state width="1877" height="281" key="GridCell.Tab.0.left/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604020298299" />
-    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1604020298299">
+    <state width="1877" height="281" key="GridCell.Tab.0.left/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604020791563" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1604020791563">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1874" height="287" key="GridCell.Tab.0.right/0.1080.1920.1080/1.0.1920.1080@1.0.1920.1080" timestamp="1597621438020" />
-    <state width="1877" height="281" key="GridCell.Tab.0.right/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604020298299" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1604011653390">
+    <state width="1877" height="281" key="GridCell.Tab.0.right/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604020791563" />
+    <state x="461" y="163" key="SettingsEditor" timestamp="1604024810266">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604011653390" />
+    <state x="461" y="163" key="SettingsEditor/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604024810266" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1604024817946">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1604024817946" />
   </component>
 </project>

@@ -15,14 +15,14 @@ public class Treasure {
     }
 
     public ImageIcon getIcon() {
-        return new ImageIcon("media/small-icons/" + iconName);
+        return new ImageIcon(getClass().getResource("media/small-icons/" + iconName));
     }
 
     public ImageIcon getIcon(boolean large) {
         if (large) {
-            return new ImageIcon("media/large-icons/" + iconName);
+            return new ImageIcon(getClass().getResource("media/large-icons/" + iconName));
         } else {
-            return new ImageIcon("media/small-icons/" + iconName);
+            return new ImageIcon(getClass().getResource("media/small-icons/" + iconName));
         }
     }
 
