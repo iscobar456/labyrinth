@@ -23,7 +23,7 @@ public class LabyrinthFrame extends JFrame {
         setSize(new Dimension(800, 800));
         getContentPane().setBackground(Color.decode("#0b0c10"));
         setLayout(new GridBagLayout());
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("media/maze.png"));
+        Image icon = Toolkit.getDefaultToolkit().getImage("media/maze.png");
         setIconImage(icon);
 
 //        Game Grid
