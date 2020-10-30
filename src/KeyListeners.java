@@ -14,8 +14,10 @@ public class KeyListeners {
         am.put("endTurn", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 if (tracker.getCurrentPlayer().hasMovedGrid()) {
+                    tracker.getCurrentPlayer().setHasMovedGrid(false);
                     tracker.endTurn();
                 } else if (tracker.getCurrentPlayer().hasInsertedTile()) {
+                    tracker.getCurrentPlayer().setHasInsertedTile(false);
                     tracker.updateGrid();
                 }
             }

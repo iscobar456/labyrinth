@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
 
 public class LabyrinthFrame extends JFrame {
     private JPanel gameGrid;
@@ -10,6 +14,7 @@ public class LabyrinthFrame extends JFrame {
     private JPanel playerTurnContainer;
     private JLabel playerTurnLabel;
     private JLabel playerTurn;
+    private CurrentObjective currentObjective;
     private DisplacedTileDisplay displacedTile;
     public LabyrinthFrame() {
         setTitle("Labyrinth");
@@ -35,11 +40,11 @@ public class LabyrinthFrame extends JFrame {
 
 //        Player Score Count
         scoreCounter = new ScoreCounter(this);
-        GridBagConstraints scConstraints = new GridBagConstraints();
-        scConstraints.gridy = 0;
-        scConstraints.gridx = 0;
-        scConstraints.gridheight = 2;
-        scConstraints.gridwidth = 1;
+        GridBagConstraints cConstraints = new GridBagConstraints();
+        cConstraints.gridy = 0;
+        cConstraints.gridx = 0;
+        cConstraints.gridheight = 2;
+        cConstraints.gridwidth = 1;
 
 //        Instructions
         JPanel instructionsContainer = new JPanel();
@@ -77,6 +82,13 @@ public class LabyrinthFrame extends JFrame {
         playerTurnContainer.add(playerTurnLabel);
         playerTurnContainer.add(playerTurn);
 
+//        Current Objective / Treasure Display
+        currentObjective = new CurrentObjective(this);
+        GridBagConstraints coConstraints = new GridBagConstraints();
+        coConstraints.gridy = 0;
+        coConstraints.gridx = 2;
+        coConstraints.gridheight = 2;
+        coConstraints.gridwidth = 1;
 
 //        Creating and assigning arrows
         gameGrid.add(new InsertArrow('d', 1, this), new ArrowConstants(2, 0));
@@ -107,9 +119,10 @@ public class LabyrinthFrame extends JFrame {
         ActionMap am = gameGrid.getActionMap();
         KeyListeners.startListeners(tracker, am, im);
 
+        add(scoreCounter, cConstraints);
         add(instructionsContainer, instructionsGridConstraints);
         add(playerTurnContainer, turnConstraints);
-        add(scoreCounter, scConstraints);
+        add(currentObjective, coConstraints);
         add(currentTile, currentTileConstraints);
         add(gameGrid, gameGridConstraints);
         add(displacedTile, displacedTileConstraints);
@@ -145,6 +158,7 @@ public class LabyrinthFrame extends JFrame {
         }
         if (newTurn) {
             scoreCounter.setNewScores();
+            currentObjective.setNewObjective();
             playerTurn.setText(tracker.getCurrentPlayer().getPlayerName());
             playerTurn.setForeground(tracker.getCurrentPlayer().getPlayerColor());
             currentTile.setTrackerTile(tracker.getCurrentTile());

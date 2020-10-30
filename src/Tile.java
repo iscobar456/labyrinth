@@ -6,6 +6,7 @@ public class Tile {
     private int tileType;
     private int[] outlets;
     private Player[] playersOnTile = null;
+    private Treasure treasure = null;
 
     public Tile(int type, int orientation, Player[] players) {
         tileType = type;
@@ -18,6 +19,21 @@ public class Tile {
         tileType = type;
         tileOrientation = orientation;
         setOutlets(type, orientation);
+    }
+
+    public Tile(int type, int orientation, Player[] players, Treasure t) {
+        tileType = type;
+        tileOrientation = orientation;
+        setOutlets(type, orientation);
+        playersOnTile = players;
+        treasure = t;
+    }
+
+    public Tile(int type, int orientation, Treasure t) {
+        tileType = type;
+        tileOrientation = orientation;
+        setOutlets(type, orientation);
+        treasure = t;
     }
 
     private void setOutlets(int type, int orientation) {
@@ -56,7 +72,7 @@ public class Tile {
 
     @Override
     public Object clone() {
-        Tile newTile = new Tile(this.tileType, this.tileOrientation, this.playersOnTile);
+        Tile newTile = new Tile(this.tileType, this.tileOrientation, this.playersOnTile, this.treasure);
         newTile.outlets = Arrays.copyOf(this.outlets, this.outlets.length);
         return newTile;
     }
@@ -71,6 +87,10 @@ public class Tile {
 
     public int getTileOrientation() {
         return tileOrientation;
+    }
+
+    public Treasure getTreasure() {
+        return treasure;
     }
 
     public Player[] getPlayersOnTile() {

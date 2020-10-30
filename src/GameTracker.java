@@ -1,4 +1,6 @@
+import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +15,15 @@ public class GameTracker {
     private ArrayList<Player>players;
     private Player currentPlayer;
     private LabyrinthFrame gameFrame;
-//    private
+    private ArrayList<Treasure>treasures = new ArrayList<>();
+
+//    Get Random Treasure
+    private Treasure grt() {
+        return treasures.remove(
+            Math.round((float)Math.random() * (float)treasures.size())
+        );
+    }
+
     public GameTracker(LabyrinthFrame frame) {
         gameFrame = frame;
 
@@ -34,14 +44,44 @@ public class GameTracker {
         players = new ArrayList<Player>();
         players.add(player1); players.add(player2); players.add(player3); players.add(player4);
 
+//        Creating Treasure instances
+        treasures.add(new Treasure("Book",           "book.png"));
+        treasures.add(new Treasure("Candle",         "candle.png"));
+        treasures.add(new Treasure("Crown",          "crown.png"));
+        treasures.add(new Treasure("Diamond",        "diamond.png"));
+        treasures.add(new Treasure("Helmet",         "helmet.png"));
+        treasures.add(new Treasure("Money",          "money-bag.png"));
+        treasures.add(new Treasure("Key",            "old-key.png"));
+        treasures.add(new Treasure("Ring",           "ring.png"));
+        treasures.add(new Treasure("Skull",          "skull.png"));
+        treasures.add(new Treasure("Sword",          "sword.png"));
+        treasures.add(new Treasure("Treasure Chest", "treasure-chest.png"));
+        treasures.add(new Treasure("Map",            "treasure-map.png"));
+
+//        Assigning players their treasures
+        ArrayList<Integer>treasuresNotTaken = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            treasuresNotTaken.add(i);
+        }
+
+        for (Player player : players) {
+            for (int i = 0; i < 3; i++) {
+                player.addTreasure(
+                    treasures.get(
+                        treasuresNotTaken.remove((int) (Math.random() * treasuresNotTaken.size()))
+                    )
+                );
+            }
+        }
+//        Creating Tile grid
         grid = new Tile[][] {
-                {new Tile(c, r, new Player[] {player1}), null, new Tile(t, r), null, new Tile(t, r), null, new Tile(c, d, new Player[] {player2})},
-                {null,                                   null, null,           null, null,           null, null                                  },
-                {new Tile(t, u),                         null, new Tile(t, u), null, new Tile(t, r), null, new Tile(t, d)                        },
-                {null,                                   null, null,           null, null,           null, null                                  },
-                {new Tile(t, u),                         null, new Tile(t, l), null, new Tile(t, d), null, new Tile(t, d)                        },
-                {null,                                   null, null,           null, null,           null, null                                  },
-                {new Tile(c, u, new Player[] {player4}), null, new Tile(t, r), null, new Tile(t, r), null, new Tile(c, l, new Player[] {player3})},
+                {new Tile(c, r, new Player[] {player1}),  null, new Tile(t, r, treasures.get(0)),  null, new Tile(t, r, treasures.get(1)),  null, new Tile(c, d, new Player[] {player2})},
+                {null,                                    null, null,                              null, null,                              null, null                                  },
+                {new Tile(t, u, treasures.get(2)),        null, new Tile(t, u, treasures.get(3)),  null, new Tile(t, r, treasures.get(4)),  null, new Tile(t, d, treasures.get(5))      },
+                {null,                                    null, null,                              null, null,                              null, null                                  },
+                {new Tile(t, u, treasures.get(6)),        null, new Tile(t, l, treasures.get(7)),  null, new Tile(t, d, treasures.get(8)),  null, new Tile(t, d, treasures.get(9))      },
+                {null,                                    null, null,                              null, null,                              null, null                                  },
+                {new Tile(c, u, new Player[] {player4}),  null, new Tile(t, l, treasures.get(10)), null, new Tile(t, l, treasures.get(11)), null, new Tile(c, l, new Player[] {player3})},
         };
 
         ArrayList randomTiles = new ArrayList<Tile>();
@@ -168,23 +208,35 @@ public class GameTracker {
         intermediaryGrid = null;
         gameFrame.renderGrid(true, true);
         this.currentPlayer.setHasMovedGrid(true);
-        System.out.println("moving grid");
     }
 
     public void endTurn() {
-        System.out.println("ending turn");
         currentPlayer.setOnTurn(false);
         Player nextPlayer = players.get(players.indexOf(currentPlayer) + 1 > 3 ? 0 : players.indexOf(currentPlayer) + 1);
         nextPlayer.setOnTurn(true);
         currentPlayer = nextPlayer;
-        System.out.println(grid);
         gameFrame.renderGrid(true, true);
+    }
+
+    public void endGame() {
+        String winnerName = null;
+        for (Player player : players) {
+            if (player.getPlayerScore() == 3) {
+                winnerName = player.getPlayerName();
+            }
+        }
+        if (winnerName == null) {
+            winnerName = "No one";
+        }
+        JPanel endGameButtons = new JPanel();
+        String endGameMessage = winnerName + " won! This game will now close.";
+        JOptionPane.showMessageDialog(gameFrame, endGameMessage, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+        System.exit(0);
     }
 
     private void swapPlayerPositions(Tile currentPlayerTile, Tile nextPlayerTile) {
 //            If the next tile has players on it, concatenate the player onto the player list
         if (nextPlayerTile.getPlayersOnTile() != null) {
-            System.out.println("Next tile has a player!");
             nextPlayerTile.setPlayersOnTile(
                     Stream.concat(
                             Arrays.stream(new Player[] {currentPlayer}),
@@ -194,9 +246,8 @@ public class GameTracker {
         } else {
             nextPlayerTile.setPlayersOnTile(new Player[] {currentPlayer});
         }
-//                    If the current tile has more than one player, remove the current player, otherwise set null.
+//        If the current tile has more than one player, remove the current player, otherwise set null.
         if (currentPlayerTile.getPlayersOnTile().length > 1) {
-            System.out.println("current tile has 2+ players!");
             Player[] newPlayerList = new Player[currentPlayerTile.getPlayersOnTile().length - 1];
             for (int i = 0, k = 0; i < currentPlayerTile.getPlayersOnTile().length; i++) {
                 if (currentPlayerTile.getPlayersOnTile()[i] != currentPlayer) {
@@ -208,6 +259,16 @@ public class GameTracker {
         } else {
             currentPlayerTile.setPlayersOnTile(null);
         }
+
+//        If the player has moved onto their current treasure tile, end their turn and add a point to their score.
+        if (nextPlayerTile.getTreasure() == currentPlayer.getCurrentTreasure()) {
+            currentPlayer.reachedCurrentTreasure();
+            if (currentPlayer.isTreasuresEmpty()) {
+                endGame();
+            } else {
+                endTurn();
+            }
+        }
     }
 
     public void movePlayer(String direction) {
@@ -216,7 +277,6 @@ public class GameTracker {
             System.out.println(this.currentPlayer.hasMovedGrid());
             return;
         }
-//        System.out.println(direction);
 
 //        Find the tile that the current player is on
         int[] currentPlayerTileLocation = null;
@@ -232,7 +292,6 @@ public class GameTracker {
                             break;
                         }
                     }
-                    System.out.println(indexOfPlayer);
                     if (indexOfPlayer != -1) {
                         currentPlayerTileLocation = new int[] {i, j};
                         currentPlayerTile = tile;
@@ -281,7 +340,5 @@ public class GameTracker {
                 }
             }
         }
-        System.out.print("After moving player: ");
-        System.out.println(grid);
     }
 }

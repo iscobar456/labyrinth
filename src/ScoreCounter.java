@@ -10,7 +10,7 @@ public class ScoreCounter extends JPanel {
         setBackground(Color.decode("#0b0c10"));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel("Player Scores");
+        JLabel title = new JLabel("Player Scores: (first to 3 wins)");
         title.setForeground(Color.WHITE);
         GridBagConstraints titleConstraints = new GridBagConstraints();
         titleConstraints.ipady = 15;
@@ -28,7 +28,7 @@ public class ScoreCounter extends JPanel {
     public void setNewScores() {
         removeAll();
 
-        JLabel title = new JLabel("Player Scores");
+        JLabel title = new JLabel("Player Scores: (first to 3 wins)");
         title.setForeground(Color.WHITE);
         GridBagConstraints titleConstraints = new GridBagConstraints();
         titleConstraints.ipady = 15;

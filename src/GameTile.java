@@ -38,8 +38,13 @@ public class GameTile extends JPanel {
         setLayout(new GridLayout(3, 3));
         for (int i = 0; i < 9; i++) {
             JPanel path = new JPanel();
+            FlowLayout pathLayout = new FlowLayout();
+            pathLayout.setVgap(0);
+            path.setLayout(pathLayout);
             path.setBackground(Color.decode("#7c7646"));
-            if (i == 4) {
+            if (i == 0 && tile.getTreasure() != null) {
+                path.add(new JLabel(tile.getTreasure().getIcon()));
+            } else if (i == 4) {
                 path.setBackground(Color.decode("#bab99d"));
                 if (tile.getPlayersOnTile() != null) {
                     path.setLayout(new GridBagLayout());
