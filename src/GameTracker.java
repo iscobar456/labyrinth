@@ -116,6 +116,9 @@ public class GameTracker {
     public void shiftStack(ShiftStackConfig config) {
 //        If player was transported across the grid in the previous stack shift,
 //        remove it from current tile before shifting again.
+        if (currentPlayer.hasMovedGrid()) {
+            return;
+        }
         if (currentTile.getPlayersOnTile() != null) {
             currentTile.setPlayersOnTile(null);
         }
